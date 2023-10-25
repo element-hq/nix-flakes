@@ -41,19 +41,25 @@
             inherit system overlays;
           };
         in
-          # listToAttrs converts a list like:
+          # listToAttrs converts a list in the form:
           #   [ {name = a; value = 1}, {name = b; value = 2;} ]
           # into an attribute set:
           #   { a = 1; b = 2; }
           #
-          # We use this to create an attribute set like:
+          # We use this to create an attribute set in the form:
           #  { synapse = devenv.lib.mkShell {...}; complement = devenv.lib.mkShell {...} }
           builtins.listToAttrs (map (projectName: {
             name = projectName;
             value = devenv.lib.mkShell {
               inherit inputs pkgs;
               modules = [{
-                imports = [ "${projectFlakesDirectory}/${projectName}" ./common.nix ];
+                imports = [
+                  # Build the shell for this project with the module provided by
+                  # the relevant file in $projectFlakesDirectory/$projectName.
+                  "${projectFlakesDirectory}/${projectName}"
+                  # ...and include the code from the common module.
+                  ./common.nix
+                ];
               }];
             };
           # Read the directory names in $projectFlakeDirectory into a list.
