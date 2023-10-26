@@ -103,3 +103,38 @@ provided by this flake's outputs:
 Note that `composeShell` takes a list as an argument. You can provide multiple
 project names in this list, and `composeShell` will build a development shell
 dependencies from all projects combined together.
+
+## Development
+
+To add a new project to this repo, create a directory with its name under
+[`project-flakes/`](project-flakes/), and inside of it create a `default.nix`
+file. This file is not a flake itself, but a function written in the nix
+language that returns a devenv module. A basic example of a `default.nix`:
+
+```nix
+# The below line tells CI where to clone the project from when testing
+# the build of your devenv module. Any git URL is supported.
+# ci.project-url: https://github.com/foo/bar
+
+# Function arguments.
+{ pkgs, ... }:
+
+# The returned devenv module attribute set.
+{
+  # Set some devenv options...
+  packages = with pkgs; [ sqlite mdbook ]
+  languages.c.enable = true;
+  # ...
+}
+```
+
+See [devenv's flake guide](https://devenv.sh/guides/using-with-flakes/) for an
+introduction; the attribute sets returned by your function are what get slotted
+into the `modules` attribute under `devenv.lib.mkShell`. [`flake.nix`](flake.nix)
+is where all that happens.
+
+[Devenv's reference](https://devenv.sh/reference/options/) has a list of all
+available options you can specify.
+
+The [Nix Language basics](https://zero-to-nix.com/concepts/nix-language) is a
+recommended read.

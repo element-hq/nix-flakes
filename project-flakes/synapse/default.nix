@@ -1,3 +1,4 @@
+# ci.project-url: https://github.com/matrix-org/synapse
 { pkgs, ... }:
 
 {

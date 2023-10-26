@@ -1,3 +1,4 @@
+# ci.project-url: https://github.com/vector-im/element-web
 { pkgs, ... }:
 
 {
