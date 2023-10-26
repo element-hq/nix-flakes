@@ -23,6 +23,7 @@
     gcc
     # Needed for building `ruff`
     gnumake
+    libiconvReal
 
     # Native dependencies for running Synapse.
     icu
