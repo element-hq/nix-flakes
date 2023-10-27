@@ -1,4 +1,5 @@
 # ci.project-url: https://github.com/vector-im/element-web
+# ci.test-command: yarn install && yarn build
 { pkgs, ... }:
 
 {

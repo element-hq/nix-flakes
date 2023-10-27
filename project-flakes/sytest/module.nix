@@ -1,4 +1,5 @@
 # ci.project-url: https://github.com/matrix-org/sytest
+# ci.test-command: perl --version
 { pkgs, ... }:
 
 {

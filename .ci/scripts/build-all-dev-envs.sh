@@ -20,14 +20,14 @@ for project in "$PROJECT_FLAKES_DIR"/*/ ; do
   cmd=$(grep "^# ci.test-command:" "$PROJECT_FLAKES_DIR/$project/module.nix" | awk -F': ' '{print $2}')
   echo "Cloning repo: $url"
   # Clone the project to a directory with the same name.
-  git clone --depth 1 -q "$url" "$project"
+  git clone --depth 1 --single-branch -q "$url" "$project"
   # Enter the project directory.
   cd "$project"
   # Show the generated outputs of the flake.
   nix flake show ..
   # Attempt to build and enter the development environment,
-  # then immediately exit the built shell.
-  nix develop --impure ..#"$project" -c "true"
+  # then run the specified test command.
+  nix develop --impure ..#"$project" -c bash -c "$cmd"
   # Leave the project directory.
   cd ..
   # Delete the project directory.

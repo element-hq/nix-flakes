@@ -1,4 +1,5 @@
 # ci.project-url: https://github.com/matrix-org/synapse
+# ci.test-command: python -m synapse.app.homeserver --server-name local -c homeserver.yaml --generate-config --report-stats=no
 { pkgs, ... }:
 
 let

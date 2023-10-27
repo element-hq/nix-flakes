@@ -1,4 +1,5 @@
 # ci.project-url: https://github.com/matrix-org/complement
+# ci.test-command: go build ./tests/...
 { pkgs, ... }:
 
 {
