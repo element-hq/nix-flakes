@@ -14,7 +14,10 @@ for project in "$PROJECT_FLAKES_DIR"/*/ ; do
   echo "Running nix develop on project: $project"
   # Extract the git URL of the project. We often need the files of the
   # project locally in order to build the development shell:
-  url=$(grep "^# ci.project-url:" "$PROJECT_FLAKES_DIR/$project/default.nix" | awk -F': ' '{print $2}')
+  url=$(grep "^# ci.project-url:" "$PROJECT_FLAKES_DIR/$project/module.nix" | awk -F': ' '{print $2}')
+  # Extract the CI test command of the project. We'll use this to check
+  # that the development environment built successfully.
+  cmd=$(grep "^# ci.test-command:" "$PROJECT_FLAKES_DIR/$project/module.nix" | awk -F': ' '{print $2}')
   echo "Cloning repo: $url"
   # Clone the project to a directory with the same name.
   git clone --depth 1 -q "$url" "$project"

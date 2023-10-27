@@ -107,9 +107,9 @@ dependencies from all projects combined together.
 ## Development
 
 To add a new project to this repo, create a directory with its name under
-[`project-flakes/`](project-flakes/), and inside of it create a `default.nix`
+[`project-flakes/`](project-flakes/), and inside of it create a `module.nix`
 file. This file is not a flake itself, but a function written in the nix
-language that returns a devenv module. A basic example of a `default.nix`:
+language that returns a devenv module. A basic example of a `module.nix`:
 
 ```nix
 # The below line tells CI where to clone the project from when testing

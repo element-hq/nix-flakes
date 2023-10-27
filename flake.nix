@@ -57,7 +57,7 @@
             inherit inputs;
             pkgs = mkPkgs system;
             modules = [{
-              imports = [ "${projectFlakesDirectory}/${projectName}" ./common.nix ];
+              imports = [ "${projectFlakesDirectory}/${projectName}/module.nix" ./common.nix ];
             }];
           };
         # Get the directory names in $projectFlakeDirectory as a list.
@@ -69,7 +69,7 @@
         #
         # When that happens, we could modify this to be a hardcoded list of
         # project names, to avoid users needing to specify `--impure`.
-        }) (builtins.attrNames (builtins.readDir projectFlakesDirectory )))
+        }) (builtins.attrNames (builtins.readDir projectFlakesDirectory)))
       );
       # Define a flake output `composeShell`, which is a function that takes
       # a list `projectNames`, and returns an attribute set of the default
@@ -91,7 +91,7 @@
             pkgs = mkPkgs system;
             modules = map (projectName: {
               imports = [
-                "${projectFlakesDirectory}/${projectName}"
+                "${projectFlakesDirectory}/${projectName}/module.nix"
                 ./common.nix
               ];
             }) projectNames;
