@@ -1,7 +1,25 @@
 # ci.project-url: https://github.com/matrix-org/synapse
 { pkgs, ... }:
 
-{
+let
+  # Pin the version of poetry to 1.5.1 as poetry 1.6.x causes issues.
+  # See https://github.com/matrix-org/synapse/issues/16147
+  poetry_1_5_1 = pkgs.poetry.overridePythonAttrs (old: rec {
+    version = "1.5.1";
+    src = pkgs.fetchFromGitHub {
+      owner = "python-poetry";
+      repo = "poetry";
+      rev = "refs/tags/${version}";
+      hash = "sha256-1zqfGzSI5RDACSNcz0tLA4VKMFwE5uD/YqOkgpzg2nQ=";
+    };
+    propagatedBuildInputs = old.propagatedBuildInputs ++ (with pkgs.python310Packages; [
+      filelock
+      html5lib
+      lockfile
+      urllib3
+    ]);
+  });
+in {
   # Configure packages to install.
   # Search for package names at https://search.nixos.org/packages?channel=unstable
   packages = with pkgs; [
@@ -52,6 +70,8 @@
   languages.python.poetry.enable = true;
   # Automatically activate the poetry virtualenv upon entering the shell.
   languages.python.poetry.activate.enable = true;
+  # Set the version of poetry to use.
+  languages.python.poetry.package = poetry_1_5_1;
   # Install all extra Python dependencies; this is needed to run the unit
   # tests and utilitise all Synapse features.
   languages.python.poetry.install.arguments = ["--extras all"];
