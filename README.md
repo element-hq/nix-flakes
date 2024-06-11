@@ -106,6 +106,8 @@ dependencies from all projects combined together.
 
 ## Development
 
+### Adding a new project
+
 To add a new project to this repo, create a directory with its name under
 [`project-flakes/`](project-flakes/), and inside of it create a `module.nix`
 file. This file is not a flake itself, but a function written in the nix
@@ -127,6 +129,25 @@ language that returns a devenv module. A basic example of a `module.nix`:
   # ...
 }
 ```
+
+### Developing a project module locally
+
+To test a development environment locally without pushing it to git, you can
+use the following to reference a development environment in a local directory:
+
+```
+nix develop path:///home/work/code/nix-flakes#synapse --impure
+```
+
+...which would drop you into a new `synapse` development environment shell.
+
+The same can be done when using `direnv`. Just set your `.envrc` file to:
+
+```
+use flake path:///home/work/code/nix-flakes#synapse --impure
+```
+
+### Further reading
 
 See [devenv's flake guide](https://devenv.sh/guides/using-with-flakes/) for an
 introduction; the attribute sets returned by your function are what get slotted
