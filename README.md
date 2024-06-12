@@ -40,7 +40,7 @@ installer](https://github.com/DeterminateSystems/nix-installer?tab=readme-ov-fil
 Then at the root of your local Synapse checkout, run the following command:
 
 ```shell
-nix develop impure github:vector-im/nix-flakes#synapse
+nix develop impure github:element-hq/nix-flakes#synapse
 ```
 
 Dependencies will be downloaded and installed for you, and you'll be dropped
@@ -60,7 +60,7 @@ the desired project development environment by installing `direnv` and creating
 a `.envrc` file with the following contents:
 
 ```
-use flake --impure github:vector-im/nix-flakes#synapse
+use flake --impure github:element-hq/nix-flakes#synapse
 ```
 
 Place that file at the root of your Synapse checkout, and run `direnv allow`.
@@ -74,7 +74,7 @@ with the dependencies of multiple projects available in it.
 ### Referencing in a downstream flake
 
 As an alternative to telling your users to write out
-`github:vector-im/nix-flakes#synapse`, you can create your own nix flake
+`github:element-hq/nix-flakes#synapse`, you can create your own nix flake
 (`flake.nix` file) that references it instead. Then, you need only do `nix
 develop --impure` in your project's directory; which by default looks for a
 flake at `./flake.nix`.
@@ -86,7 +86,7 @@ provided by this flake's outputs:
 {
   inputs = {
     # A repository of nix development environment flakes.
-    element-nix-flakes.url = "github:vector-im/nix-flakes";
+    element-nix-flakes.url = "github:element-hq/nix-flakes";
   };
 
   outputs = { self, element-nix-flakes, ... }:
