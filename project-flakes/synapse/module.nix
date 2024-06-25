@@ -114,7 +114,9 @@
     EOF
   '';
   # Start synapse when `devenv up` is run.
-  processes.synapse.exec = "poetry run python -m synapse.app.homeserver -c homeserver.yaml -c homeserver-config-overrides.d";
+  # We set LD_LIBRARY_PATH to counteract the unsetting below,
+  # so that Synapse has the libs that it needs.
+  processes.synapse.exec = "LD_LIBRARY_PATH=$DEVENV_ROOT/.devenv/profile/lib poetry run python -m synapse.app.homeserver -c homeserver.yaml -c homeserver-config-overrides.d";
 
   # Clear the LD_LIBRARY_PATH environment variable on shell init.
   #
