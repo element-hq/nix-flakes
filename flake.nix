@@ -8,7 +8,7 @@
     rust-overlay.url = "github:oxalica/rust-overlay";
   };
 
-  outputs = inputs@{ devenv, nixpkgs, rust-overlay, systems, ... }:
+  outputs = inputs@{ self, devenv, nixpkgs, rust-overlay, systems, ... }:
     let
       # The local directory where project-specific flakes are stored.
       projectFlakesDirectory = ./project-flakes;
@@ -96,6 +96,18 @@
               ];
             }) projectNames;
           };
+        }
+      );
+      # Define a function `setupPackages` that downstream flakes can use to correctly
+      # configure the `devenv up` functionality.
+      #
+      # This function creates an entry intended to be inserted into a downstream flake's
+      # `packages` flake output.
+      #
+      # See the README for how to use this in a downstream flake.
+      setupPackages = projectName: forEachSystem (system:
+        {
+          devenv-up = self.devShells.${system}.${projectName}.config.procfileScript;
         }
       );
     };

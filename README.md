@@ -96,6 +96,10 @@ provided by this flake's outputs:
       devShells = element-nix-flakes.outputs.composeShell [
         "synapse"
       ];
+      # Use the `setupPackages` function to configure `devenv up`
+      # to use the `services` and `processes` defined in the
+      # "synapse" project module.
+      packages = element-nix-flakes.outputs.setupPackages "synapse";
     };
 }
 ```
@@ -103,6 +107,12 @@ provided by this flake's outputs:
 Note that `composeShell` takes a list as an argument. You can provide multiple
 project names in this list, and `composeShell` will build a development shell
 dependencies from all projects combined together.
+
+`setupPackages` is another function provided by the `nix-flakes` flake, which
+must be called (and its output set to `packages`) in order to utilise the
+`devenv up` functionality. This will start any `processes` and `services`
+defined in the project module - for instance, starting up the project and
+any database/redis/language servers etc needed for development.
 
 ## Development
 
