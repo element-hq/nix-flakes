@@ -1,7 +1,7 @@
 {
   inputs = {
     # A development environment manager built on Nix. See https://devenv.sh.
-    devenv.url = "github:cachix/devenv/v0.6.3";
+    devenv.url = "github:cachix/devenv/v1.0.7";
     # Output a development shell for x86_64/aarch64 Linux/Darwin (MacOS).
     systems.url = "github:nix-systems/default";
     # Rust toolchain.
