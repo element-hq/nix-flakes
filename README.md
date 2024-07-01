@@ -40,7 +40,7 @@ installer](https://github.com/DeterminateSystems/nix-installer?tab=readme-ov-fil
 Then at the root of your local Synapse checkout, run the following command:
 
 ```shell
-nix develop impure github:element-hq/nix-flakes#synapse
+nix develop --impure github:element-hq/nix-flakes#synapse
 ```
 
 Dependencies will be downloaded and installed for you, and you'll be dropped
