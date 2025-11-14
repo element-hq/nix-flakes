@@ -1,15 +1,10 @@
-# ci.project-url: https://github.com/matrix-org/complement
-# ci.test-command: go build ./tests/...
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   # Configure packages to install.
   # Search for package names at https://search.nixos.org/packages?channel=unstable
-  packages = with pkgs; [
-    # For performing Matrix olm/megolm crypto.
-    # olm
-  ];
+  packages = with pkgs; [];
 
-  # Install the latest version of the Go programming language.
+  # Install Golang.
   languages.go.enable = true;
 }

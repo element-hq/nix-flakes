@@ -1,9 +1,7 @@
 {
   inputs = {
     # A development environment manager built on Nix. See https://devenv.sh.
-    # devenv.url = "github:cachix/devenv/v1.3.1";
-    # Needed until https://github.com/cachix/devenv/pull/1573 is in a release.
-    devenv.url = "github:cachix/devenv/4b8677f62022e6a235cc4e93a6bbc3d57b77817f";
+    devenv.url = "github:cachix/devenv/v1.8.2";
     # Output a development shell for x86_64/aarch64 Linux/Darwin (MacOS).
     systems.url = "github:nix-systems/default";
   };

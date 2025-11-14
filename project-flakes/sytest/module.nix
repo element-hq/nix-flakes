@@ -10,6 +10,7 @@
     openssl
     # TODO: might need:
     # libsodium
+    perl538Packages.PerlLanguageServer
   ];
 
   # Install the latest version of the perl programming language and required

@@ -7,7 +7,8 @@
     # The rust toolchain and related tools.
     # This will install the "default" profile of rust components.
     # https://rust-lang.github.io/rustup/concepts/profiles.html
-    (rust-bin.stable."1.66.0".default.override {
+    #(rust-bin.nightly."2025-07-25".default.override {
+    (rust-bin.stable."1.88.0".default.override {
       # Additionally install the "rust-src" extension to allow diving into the
       # Rust source code in an IDE (rust-analyzer will also make use of it).
       extensions = [ "rust-src" ];
@@ -25,11 +26,13 @@
     icu
     libffi
     libjpeg
+    libiconv
     libpqxx
     libwebp
     libxml2
     libxslt
     sqlite
+    postgresql.pg_config
 
     # Native dependencies for unit tests.
     openssl
@@ -45,7 +48,9 @@
 
   # Install Python and manage a virtualenv with Poetry.
   languages.python.enable = true;
+  languages.python.package = pkgs.python313;
   languages.python.poetry.enable = true;
+  #languages.python.poetry.package = pkgs.python314Packages.poetry-core;
   # Automatically activate the poetry virtualenv upon entering the shell.
   languages.python.poetry.activate.enable = true;
   # Install all extra Python dependencies; this is needed to run the unit
@@ -114,7 +119,8 @@
   # libraries. Which, when built against a different glibc version lead, to "version 'GLIBC_X.YY'
   # not found" errors.
   enterShell = ''
-    unset LD_LIBRARY_PATH
+    #unset LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH=$DEVENV_ROOT/.devenv/profile/lib
   '';
 
   tasks."synapse:patch-python-binaries" = {
